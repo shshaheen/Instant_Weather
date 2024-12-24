@@ -37,6 +37,7 @@ class WeatherScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+
           children: [
             // Main Card
             SizedBox(
@@ -73,7 +74,181 @@ class WeatherScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-        
+
+            
+            Align(
+              alignment: Alignment.centerLeft,
+              
+              child: const Text(
+                "Weather Forecast",
+                style: TextStyle(
+                  fontSize: 24,
+                    fontWeight: FontWeight.bold),
+                    )
+                    ),
+                    const SizedBox(height: 10),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                            SizedBox(
+                              width: 120,
+                              child: Card (
+                                elevation: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                    child: Padding(  
+                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(height:10),
+                                          Text('03:00',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ), ),
+                                          const SizedBox(height: 8,),
+                                          Icon(Icons.cloud , size: 32,),
+                                          const SizedBox(height: 8,),
+                                          Text('320.12',
+                                          ),
+                                          const SizedBox(height: 8,),
+                                          ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                            ),
+                            SizedBox(
+                              width: 120,
+                              child: Card (
+                                elevation: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                    child: Padding(  
+                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(height:10),
+                                          Text('03:00',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ), ),
+                                          const SizedBox(height: 8,),
+                                          Icon(Icons.cloud , size: 32,),
+                                          const SizedBox(height: 8,),
+                                          Text('320.12',
+                                          ),
+                                          const SizedBox(height: 8,),
+                                          ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                            ),
+                            SizedBox(
+                              width: 120,
+                              child: Card (
+                                elevation: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                    child: Padding(  
+                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(height:10),
+                                          Text('03:00',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ), ),
+                                          const SizedBox(height: 8,),
+                                          Icon(Icons.cloud , size: 32,),
+                                          const SizedBox(height: 8,),
+                                          Text('320.12',
+                                          ),
+                                          const SizedBox(height: 8,),
+                                          ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                            ),
+                            SizedBox(
+                              width: 120,
+                              child: Card (
+                                elevation: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                    child: Padding(  
+                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(height:10),
+                                          Text('03:00',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ), ),
+                                          const SizedBox(height: 8,),
+                                          Icon(Icons.cloud , size: 32,),
+                                          const SizedBox(height: 8,),
+                                          Text('320.12',
+                                          ),
+                                          const SizedBox(height: 8,),
+                                          ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                            ),
+                            SizedBox(
+                              width: 120,
+                              child: Card (
+                                elevation: 10,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: BackdropFilter(
+                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                                    child: Padding(  
+                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
+                                      child: Column(
+                                        children: [
+                                          const SizedBox(height:10),
+                                          Text('03:00',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ), ),
+                                          const SizedBox(height: 8,),
+                                          Icon(Icons.cloud , size: 32,),
+                                          const SizedBox(height: 8,),
+                                          Text('320.12',
+                                          ),
+                                          const SizedBox(height: 8,),
+                                          ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              
+                            ),
+                        ],
+                        ),
+                    ),
             // Weather Forecast Card
             Placeholder(
             fallbackHeight: 120,
