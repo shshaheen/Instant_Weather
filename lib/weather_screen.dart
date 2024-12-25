@@ -15,32 +15,29 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen> {
   Future<Map<String, dynamic>> getCurrentWeather() async {
-    // URI: Uniform Resource Identifier
-    // URL: Uniform resource Locator
-    //URL is a sub type of URI
     try {
-      String cityName = 'nigeria';
+      String cityName = 'kurnool'; // Replace with dynamic city if needed
       final res = await http.get(
         Uri.parse(
-            "https://api.openweathermap.org/data/2.5/weather?q=$cityName&APPID=$openWeatherAPIKey"),
+            "https://api.openweathermap.org/data/2.5/forecast?q=$cityName&APPID=$openWeatherAPIKey"),
       );
-      final data = jsonDecode(res.body);
-      if (data['cod'] != 200) {
-        throw data['message'];
+
+      // Check for successful response
+      if (res.statusCode != 200) {
+        throw Exception("Failed to load weather data: ${res.statusCode}");
       }
-      //  (data['main']['temp'] - 273.15).toStringAsFixed(1);
+
+      final data = jsonDecode(res.body);
       return data;
     } catch (e) {
-      throw e.toString();
+      throw Exception(e.toString());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.black,
       appBar: AppBar(
-        // backgroundColor: const Color.fromARGB(255, 239, 162, 18),
         title: Text(
           "Weather ⛅",
           style: TextStyle(
@@ -50,35 +47,38 @@ class _WeatherScreenState extends State<WeatherScreen> {
         ),
         centerTitle: true,
         actions: [
-          // GestureDetector(
           Padding(
             padding: const EdgeInsets.only(right: 20.0),
             child: InkWell(
-                onTap: () => {
-                      debugPrint("Refresh"),
-                    },
-                child: Icon(Icons.refresh)),
+              onTap: () => {
+                debugPrint("Refresh"),
+                setState(() {}), // Trigger a refresh
+              },
+              child: Icon(Icons.refresh),
+            ),
           ),
-          // ),
         ],
       ),
       body: FutureBuilder(
         future: getCurrentWeather(),
         builder: (context, snapshot) {
-          print(snapshot);
-          print(snapshot.runtimeType);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: const CircularProgressIndicator.adaptive());
           }
+
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
           }
-          final String currentTemp;
+
           if (snapshot.hasData) {
             final data = snapshot.data as Map<String, dynamic>;
-            currentTemp = (data['main']['temp'] - 275.15).toStringAsFixed(1);
-            final currentSky = data['weather'][0]['main'];
-            print(currentSky);
+            final currentTemp = (data['list'][0]['main']['temp'] - 273.15)
+                .toStringAsFixed(1); // Corrected temperature conversion
+            final currentSky = data['list'][0]['weather'][0]['main'];
+            final pressure = data['list'][0]['main']['pressure'];
+            final humidity = data['list'][0]['main']['humidity'];
+            final windSpeed = data['list'][0]['wind']['speed'];
+            // print(data['list'][0]['dt_txt']);
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -89,16 +89,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     child: Card(
                       elevation: 10,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 12,
-                              ),
+                              const SizedBox(height: 12),
                               Text(
                                 '$currentTemp°C',
                                 style: TextStyle(
@@ -107,26 +106,25 @@ class _WeatherScreenState extends State<WeatherScreen> {
                                   color: Colors.amber,
                                 ),
                               ),
-                              const SizedBox(
-                                height: 12,
-                              ),
+                              const SizedBox(height: 12),
                               Icon(
-                                currentSky == 'Clouds' || currentSky == 'Rain'?
-                                Icons.cloud:
-                                Icons.sunny
-                                , size: 55),
-                              const SizedBox(
-                                height: 12,
+                                currentSky == 'Clouds' || currentSky == 'Rain'
+                                    ? Icons.cloud
+                                    : currentSky == 'Clear'
+                                        ? Icons.sunny
+                                        : Icons.cloud_queue,
+                                size: 55,
                               ),
+                              const SizedBox(height: 12),
                               Text(
-                                currentSky == 'Clouds' || currentSky == 'Rain'?
-                                "Cloudy":
-                                "Sunny",
+                                currentSky == 'Clouds'
+                                    ? "Cloudy"
+                                    : currentSky == 'Rain'
+                                        ? "Rainy"
+                                        : "Sunny",
                                 style: TextStyle(fontSize: 16),
                               ),
-                              const SizedBox(
-                                height: 12,
-                              ),
+                              const SizedBox(height: 12),
                             ],
                           ),
                         ),
@@ -137,12 +135,13 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
                   // Weather Forecast Card
                   Align(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Weather Forecast",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      )),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Weather Forecast",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -177,32 +176,37 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  // Addition Information Card
+
+                  // Additional Information Card
                   Align(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Additional Information",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      )),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Additional Information",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   const SizedBox(height: 8),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        AdditionalInfoItem(
-                          icon: Icons.water_drop,
-                          label: "Humidity",
-                          value: "91",
-                        ),
-                        AdditionalInfoItem(
-                            icon: Icons.air_outlined,
-                            label: "Wind Speed",
-                            value: "100"),
-                        AdditionalInfoItem(
-                            icon: Icons.beach_access_sharp,
-                            label: "Pressure",
-                            value: "1002"),
-                      ]),
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      AdditionalInfoItem(
+                        icon: Icons.water_drop,
+                        label: "Humidity",
+                        value: humidity.toString(),
+                      ),
+                      AdditionalInfoItem(
+                        icon: Icons.air_outlined,
+                        label: "Wind Speed",
+                        value: windSpeed.toString(),
+                      ),
+                      AdditionalInfoItem(
+                        icon: Icons.beach_access_sharp,
+                        label: "Pressure",
+                        value: pressure.toString(),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             );
