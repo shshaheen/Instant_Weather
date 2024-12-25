@@ -1,6 +1,7 @@
 import 'dart:ui';
-
+import 'Hourly_forecast_item.dart';
 import 'package:flutter/material.dart';
+import 'additional_info_item.dart';
 
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({super.key});
@@ -40,14 +41,14 @@ class WeatherScreen extends StatelessWidget {
 
           children: [
             // Main Card
-            SizedBox(
+            SizedBox(              
               width: double.infinity,
-              child: Card(
+              child: Card(                              
                 elevation: 10,
                 shape: RoundedRectangleBorder(
                   borderRadius:BorderRadius.circular(16) ),
 
-                child: ClipRRect(
+                child: ClipRRect(                  
                   borderRadius: BorderRadius.circular(16),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
@@ -59,6 +60,7 @@ class WeatherScreen extends StatelessWidget {
                           style: TextStyle(
                           fontSize: 34,
                           fontWeight: FontWeight.bold,
+                          color: Colors.amber,
                         ),
                         ),
                         const SizedBox(height: 12,),
@@ -75,7 +77,7 @@ class WeatherScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            
+            // Weather Forecast Card
             Align(
               alignment: Alignment.centerLeft,
               
@@ -86,182 +88,45 @@ class WeatherScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold),
                     )
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 8),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                            SizedBox(
-                              width: 120,
-                              child: Card (
-                                elevation: 10,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                    child: Padding(  
-                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height:10),
-                                          Text('03:00',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ), ),
-                                          const SizedBox(height: 8,),
-                                          Icon(Icons.cloud , size: 32,),
-                                          const SizedBox(height: 8,),
-                                          Text('320.12',
-                                          ),
-                                          const SizedBox(height: 8,),
-                                          ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              
-                            ),
-                            SizedBox(
-                              width: 120,
-                              child: Card (
-                                elevation: 10,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                    child: Padding(  
-                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height:10),
-                                          Text('03:00',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ), ),
-                                          const SizedBox(height: 8,),
-                                          Icon(Icons.cloud , size: 32,),
-                                          const SizedBox(height: 8,),
-                                          Text('320.12',
-                                          ),
-                                          const SizedBox(height: 8,),
-                                          ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              
-                            ),
-                            SizedBox(
-                              width: 120,
-                              child: Card (
-                                elevation: 10,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                    child: Padding(  
-                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height:10),
-                                          Text('03:00',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ), ),
-                                          const SizedBox(height: 8,),
-                                          Icon(Icons.cloud , size: 32,),
-                                          const SizedBox(height: 8,),
-                                          Text('320.12',
-                                          ),
-                                          const SizedBox(height: 8,),
-                                          ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              
-                            ),
-                            SizedBox(
-                              width: 120,
-                              child: Card (
-                                elevation: 10,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                    child: Padding(  
-                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height:10),
-                                          Text('03:00',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ), ),
-                                          const SizedBox(height: 8,),
-                                          Icon(Icons.cloud , size: 32,),
-                                          const SizedBox(height: 8,),
-                                          Text('320.12',
-                                          ),
-                                          const SizedBox(height: 8,),
-                                          ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              
-                            ),
-                            SizedBox(
-                              width: 120,
-                              child: Card (
-                                elevation: 10,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: BackdropFilter(
-                                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                                    child: Padding(  
-                                      padding: const EdgeInsets.only(left: 15, right: 15,top: 10, bottom: 10),                                    
-                                      child: Column(
-                                        children: [
-                                          const SizedBox(height:10),
-                                          Text('03:00',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ), ),
-                                          const SizedBox(height: 8,),
-                                          Icon(Icons.cloud , size: 32,),
-                                          const SizedBox(height: 8,),
-                                          Text('320.12',
-                                          ),
-                                          const SizedBox(height: 8,),
-                                          ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              
-                            ),
+                            HourlyForecastItem(time: "3:30",icon: Icons.cloud ,temperature: "34.5",),
+                            HourlyForecastItem(time: "4:30",icon: Icons.sunny, temperature: "30.5",),
+                            HourlyForecastItem(time: "6:30",icon: Icons.cloud_done ,temperature: "34.5",),
+                            HourlyForecastItem(time: "9:30",icon: Icons.cloud_queue ,temperature: "34.5",),
+                            HourlyForecastItem(time: "7:30", icon: Icons.cloudy_snowing,temperature: "34.5",),   
                         ],
                         ),
                     ),
-            // Weather Forecast Card
-            Placeholder(
-            fallbackHeight: 120,
-            ),
-            const SizedBox(height: 20),
-        
+            const SizedBox(height: 20),            
             // Addition Information Card
-            Placeholder(
-            fallbackHeight: 120,
+            Align(
+              alignment: Alignment.centerLeft,
+              
+              child: const Text(
+                "Additional Information",
+                style: TextStyle(
+                  fontSize: 24,
+                    fontWeight: FontWeight.bold),
+                    )
             ),
+            const SizedBox(height: 8),
+             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                AdditionalInfoItem(icon: Icons.water_drop,label: "Humidity",value: "91",),
+                AdditionalInfoItem(icon: Icons.air_outlined,label: "Wind Speed",value: "100"),
+                AdditionalInfoItem(icon: Icons.beach_access_sharp,label: "Pressure",value: "1002"),                
+            ]
+            ) ,
+            
           ],
         ),
       ),
     );
   }
 }
+
