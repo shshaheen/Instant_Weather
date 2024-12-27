@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'additional_info_item.dart';
 import 'package:http/http.dart' as http;
 import 'secrets.dart';
+import 'dart:developer' as developer;
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -16,7 +17,7 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen> {
   Future<Map<String, dynamic>> getCurrentWeather() async {
     try {
-      String cityName = 'kurnool'; // Replace with dynamic city if needed
+      String cityName = 'kadapa'; // Replace with dynamic city if needed
       final res = await http.get(
         Uri.parse(
             "https://api.openweathermap.org/data/2.5/forecast?q=$cityName&APPID=$openWeatherAPIKey"),
@@ -32,6 +33,14 @@ class _WeatherScreenState extends State<WeatherScreen> {
     } catch (e) {
       throw Exception(e.toString());
     }
+  }
+
+  IconData getWeatherIcon(String data) {
+    return data == 'Clouds' || data == 'Rain'
+        ? Icons.cloud
+        : data == 'Clear'
+            ? Icons.sunny
+            : Icons.cloud_queue;
   }
 
   @override
@@ -78,7 +87,22 @@ class _WeatherScreenState extends State<WeatherScreen> {
             final pressure = data['list'][0]['main']['pressure'];
             final humidity = data['list'][0]['main']['humidity'];
             final windSpeed = data['list'][0]['wind']['speed'];
-            // print(data['list'][0]['dt_txt']);
+            List<String> forecastTime = [];
+            List<String> forecastTemperature = [];
+            List<String> forecastWeather = [];
+            int n = 9;
+            for (int i = 0; i < n; i++) {
+              forecastTime.add(data['list'][i]['dt_txt'].substring(11, 16));
+            }
+
+            for (int i = 0; i < n; i++) {
+              forecastTemperature.add((data['list'][i]['main']['temp'] - 273.15)
+                  .toStringAsFixed(1));
+            }
+            for (int i = 0; i < n; i++) {
+              forecastWeather.add(data['list'][i]['weather'][0]['main']);
+            }
+            // print(forecastWeather);
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -147,31 +171,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        HourlyForecastItem(
-                          time: "3:30",
-                          icon: Icons.cloud,
-                          temperature: "34.5",
-                        ),
-                        HourlyForecastItem(
-                          time: "4:30",
-                          icon: Icons.sunny,
-                          temperature: "30.5",
-                        ),
-                        HourlyForecastItem(
-                          time: "6:30",
-                          icon: Icons.cloud_done,
-                          temperature: "34.5",
-                        ),
-                        HourlyForecastItem(
-                          time: "9:30",
-                          icon: Icons.cloud_queue,
-                          temperature: "34.5",
-                        ),
-                        HourlyForecastItem(
-                          time: "7:30",
-                          icon: Icons.cloudy_snowing,
-                          temperature: "34.5",
-                        ),
+                        for (int i = 0; i < forecastTime.length; i++)
+                          HourlyForecastItem(
+                            time: forecastTime[i],
+                            icon: getWeatherIcon(forecastWeather[i]),
+                            temperature: forecastTemperature[i],
+                          ),
                       ],
                     ),
                   ),
